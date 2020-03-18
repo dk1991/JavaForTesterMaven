@@ -1,4 +1,4 @@
-package ru.stqa.pft.sandbox;
+package ru.stqa.pft.addressbook;
 
 class MyFirstProgram {
 	public static void main(String[] args) {
