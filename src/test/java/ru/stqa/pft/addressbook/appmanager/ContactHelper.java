@@ -1,11 +1,12 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import static java.lang.Thread.sleep;
 
 public class ContactHelper extends HelperBase {
 
@@ -33,7 +34,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void returnToHomePage() {
-        click(By.xpath("//a[text()='home page']"));
+        click(By.xpath("//a[text()='home']"));
     }
 
     public void initContactModification() {
@@ -42,5 +43,25 @@ public class ContactHelper extends HelperBase {
 
     public void submitContactModification() {
         click(By.xpath("//input[@value='Update']"));
+    }
+
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void deleteSelectedContact() {
+        click(By.xpath("//input[@value='Delete']"));
+        wd.switchTo().alert().accept();
+    }
+
+    public void createContact(ContactData contact, boolean creation) {
+        initContactCreation();
+        fillContactForm(contact, creation);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
+    public boolean isThereAnyContact() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
