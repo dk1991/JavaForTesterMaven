@@ -1,15 +1,14 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
+    private int id = Integer.MAX_VALUE;
     private String group;
-
-    public ContactData(String firstName, String lastName, String group) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.group = group;
-    }
+    private String mobilePhone;
+    private String homePhone;
+    private String workPhone;
+    private String allPhones;
 
     public String getFirstName() {
         return firstName;
@@ -19,8 +18,68 @@ public class ContactData {
         return lastName;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getGroup() {
         return group;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
     }
 
     @Override
