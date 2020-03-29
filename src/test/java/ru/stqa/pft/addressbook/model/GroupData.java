@@ -1,35 +1,35 @@
 package ru.stqa.pft.addressbook.model;
 
 public class GroupData {
-    private String groupName;
-    private String groupHeader;
-    private String groupFooter;
+    private String name;
+    private String header;
+    private String footer;
     private int id = Integer.MAX_VALUE;
 
-    public String getGroupName() {
-        return groupName;
+    public String getName() {
+        return name;
     }
 
     public GroupData withName(String groupName) {
-        this.groupName = groupName;
+        this.name = groupName;
         return this;
     }
 
-    public String getGroupHeader() {
-        return groupHeader;
+    public String getHeader() {
+        return header;
     }
 
     public GroupData withHeader(String groupHeader) {
-        this.groupHeader = groupHeader;
+        this.header = groupHeader;
         return this;
     }
 
-    public String getGroupFooter() {
-        return groupFooter;
+    public String getFooter() {
+        return footer;
     }
 
     public GroupData withFooter(String groupFooter) {
-        this.groupFooter = groupFooter;
+        this.footer = groupFooter;
         return this;
     }
 
@@ -45,7 +45,7 @@ public class GroupData {
     @Override
     public String toString() {
         return "GroupData{" +
-                "groupName='" + groupName + '\'' +
+                "groupName='" + name + '\'' +
                 ", id='" + id + '\'' +
                 '}';
     }
@@ -58,12 +58,12 @@ public class GroupData {
         GroupData groupData = (GroupData) o;
 
         if (id != groupData.id) return false;
-        return groupName != null ? groupName.equals(groupData.groupName) : groupData.groupName == null;
+        return name != null ? name.equals(groupData.name) : groupData.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = groupName != null ? groupName.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + id;
         return result;
     }

@@ -30,6 +30,7 @@ public class ContactHelper extends HelperBase {
         type(By.xpath("//input[@name='email']"), contactData.getEmail());
         type(By.xpath("//input[@name='email2']"), contactData.getEmail2());
         type(By.xpath("//input[@name='email3']"), contactData.getEmail3());
+        attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
             List<WebElement> availableGroups = wd.findElements(By.xpath("//select[@name='new_group']/option"));
