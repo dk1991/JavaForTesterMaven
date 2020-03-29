@@ -94,6 +94,15 @@ public class GroupHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             groupCache.add(new GroupData().withName(name).withId(id));
         }
+
         return new Groups(groupCache);
+    }
+
+    public GroupData firstGroup() {
+        WebElement group = wd.findElement(By.xpath("//span[@class='group']"));
+        String name = group.getText();
+        int id = Integer.parseInt(group.findElement(By.tagName("input")).getAttribute("value"));
+
+        return new GroupData().withName(name).withId(id);
     }
 }
