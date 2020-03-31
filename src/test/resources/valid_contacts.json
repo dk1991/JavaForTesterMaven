@@ -1,0 +1,35 @@
+[
+  {
+    "firstName": "Robot0",
+    "lastName": "LastName0",
+    "mobilePhone": "89035259924",
+    "homePhone": "89869070900",
+    "workPhone": "89747340555",
+    "address": "Moscow Kievskaya st. 0-0",
+    "email": "suncyzg@google.com",
+    "email2": "qiadpoa@google.com",
+    "email3": "zerqcll@google.com"
+  },
+  {
+    "firstName": "Robot1",
+    "lastName": "LastName1",
+    "mobilePhone": "89614919976",
+    "homePhone": "89260584536",
+    "workPhone": "89935264165",
+    "address": "Moscow Kievskaya st. 1-1",
+    "email": "cjxqvkf@google.com",
+    "email2": "glkfttl@google.com",
+    "email3": "trinuvu@google.com"
+  },
+  {
+    "firstName": "Robot2",
+    "lastName": "LastName2",
+    "mobilePhone": "89489348212",
+    "homePhone": "89037576077",
+    "workPhone": "89135508478",
+    "address": "Moscow Kievskaya st. 2-2",
+    "email": "doedbqg@google.com",
+    "email2": "yzbktha@google.com",
+    "email3": "hsngtwu@google.com"
+  }
+]

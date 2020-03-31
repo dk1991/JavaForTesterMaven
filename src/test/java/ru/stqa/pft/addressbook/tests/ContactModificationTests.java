@@ -18,7 +18,7 @@ public class ContactModificationTests extends TestBase {
         }
     }
 
-    @Test(enabled = false)
+    @Test
     public void testContactModification() {
         Contacts before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
