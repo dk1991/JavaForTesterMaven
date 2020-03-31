@@ -27,6 +27,13 @@
                         <suiteXmlFile>src/test/resources/testng-groups.xml</suiteXmlFile>
                         <suiteXmlFile>src/test/resources/testng-contacts.xml</suiteXmlFile>
                     </suiteXmlFiles>
+<!--                    <systemPropertyVariables>-->
+<!--&lt;!&ndash;                        <propertyName>propertyValue</propertyName>&ndash;&gt;-->
+<!--                        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                        <target>${target}</target>-->
+<!--                        &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                        <browser>firefox</browser>-->
+<!--                    </systemPropertyVariables>-->
                 </configuration>
             </plugin>
         </plugins>
