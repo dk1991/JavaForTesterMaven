@@ -13,7 +13,7 @@ public class DBConnectionTest {
     private static final String PASSWORD = "";
     private static final String SQL = "SELECT group_id, group_name, group_header, group_footer FROM group_list";
 
-    @Test
+    @Test(enabled = false)
     public void testDBConnection() {
         Connection conn = null;
         try {
