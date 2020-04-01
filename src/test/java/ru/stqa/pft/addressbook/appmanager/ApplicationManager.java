@@ -22,6 +22,7 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
     private SessionHelper sessionHelper;
     private String browser;
+    private DBHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -35,6 +36,9 @@ public class ApplicationManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        dbHelper = new DBHelper();
+
         if (browser.equals(BrowserType.FIREFOX)) {
             WebDriverManager.firefoxdriver().setup();
             wd = new FirefoxDriver();
@@ -71,5 +75,9 @@ public class ApplicationManager {
 
     public NavigationHelper goTo() {
         return navigationHelper;
+    }
+
+    public DBHelper db() {
+        return dbHelper;
     }
 }
