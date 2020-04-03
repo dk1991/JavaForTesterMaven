@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.appmanager;
+package ru.stqa.pft.mantis.appmanager;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -17,12 +17,7 @@ public class ApplicationManager {
     private final Properties properties;
     WebDriver wd;
 
-    private NavigationHelper navigationHelper;
-    private GroupHelper groupHelper;
-    private ContactHelper contactHelper;
-    private SessionHelper sessionHelper;
     private String browser;
-    private DBHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -37,8 +32,6 @@ public class ApplicationManager {
             e.printStackTrace();
         }
 
-        dbHelper = new DBHelper();
-
         if (browser.equals(BrowserType.FIREFOX)) {
             WebDriverManager.firefoxdriver().setup();
             wd = new FirefoxDriver();
@@ -52,32 +45,10 @@ public class ApplicationManager {
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.manage().window().maximize();
-
         wd.get(properties.getProperty("web.baseUrl"));
-        groupHelper = new GroupHelper(wd);
-        contactHelper = new ContactHelper(wd);
-        navigationHelper = new NavigationHelper(wd);
-        sessionHelper = new SessionHelper(wd);
-        sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
     }
 
     public void stop() {
         wd.quit();
-    }
-
-    public GroupHelper group() {
-        return groupHelper;
-    }
-
-    public ContactHelper contact() {
-        return contactHelper;
-    }
-
-    public NavigationHelper goTo() {
-        return navigationHelper;
-    }
-
-    public DBHelper db() {
-        return dbHelper;
     }
 }
