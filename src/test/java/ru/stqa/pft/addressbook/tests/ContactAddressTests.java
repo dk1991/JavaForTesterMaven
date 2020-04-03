@@ -13,7 +13,7 @@ public class ContactAddressTests extends TestBase {
     public void ensurePreconditions() {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstName("Rita").withLastName("Bubnova").withGroup("test1")
+            app.contact().create(new ContactData().withFirstName("Rita").withLastName("Bubnova")/*.withGroup("test1")*/
                     .withAddress("Moscow VDNKH Konstantinova 33-155"),true);
         }
     }

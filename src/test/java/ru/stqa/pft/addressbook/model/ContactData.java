@@ -5,6 +5,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -21,9 +23,9 @@ public class ContactData {
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
 
-    @Expose
-    @Transient // НЕ извлекать это поле из БД
-    private String group;
+//    @Expose
+//    @Transient // НЕ извлекать это поле из БД
+//    private String group;
 
     @Expose
     @Column(name = "mobile")
@@ -73,6 +75,12 @@ public class ContactData {
     @Type(type = "text")
     private String photo;
 
+    @ManyToMany(fetch = FetchType.EAGER) // по умолчанию LAZY - т.е. из БД извлекается как можно меньше инфо,
+            // меняем на EAGER, чтобы извлекать как можно больше
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<>();
+
     public String getFirstName() {
         return firstName;
     }
@@ -85,9 +93,9 @@ public class ContactData {
         return id;
     }
 
-    public String getGroup() {
-        return group;
-    }
+//    public String getGroup() {
+//        return group;
+//    }
 
     public String getMobilePhone() {
         return mobilePhone;
@@ -130,7 +138,15 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return new File(photo);
+        if (photo != null) {
+            return new File(photo);
+        } else {
+            return null;
+        }
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public ContactData withFirstName(String firstName) {
@@ -148,10 +164,10 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
+//    public ContactData withGroup(String group) {
+//        this.group = group;
+//        return this;
+//    }
 
     public ContactData withMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
@@ -205,6 +221,11 @@ public class ContactData {
 
     public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
+        return this;
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
         return this;
     }
 

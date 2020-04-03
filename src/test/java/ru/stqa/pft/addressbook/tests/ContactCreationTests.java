@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,41 +53,40 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
-    private String groupName = "";
-
     @BeforeClass
     public void getAvailableGroup() {
-        app.goTo().groupPage();
-        if (app.group().count() > 0) {
-            groupName = app.group().firstGroup().getName();
-        } else {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
             app.group().create(new GroupData().withName("test666").withHeader("test777").withFooter("test888"));
-            groupName = "test666";
         }
     }
 
-    @Test(dataProvider = "validContactsFromJson")
+    @Test(dataProvider = "validContactsFromJson", priority = 1)
     public void testContactCreation(ContactData contact) {
+        Groups groups = app.db().groups();
         File photo = new File("src/test/resources/bliznecy.png");
-        contact.withPhoto(photo).withGroup(groupName);
+        contact.withPhoto(photo).inGroup(groups.iterator().next());
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        //Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().create(contact, true);
-        assertThat(app.contact().count(), equalTo(before.size() + 1));
-        Contacts after = app.contact().all();
+        assertThat(/*app.contact().count()*/app.db().contacts().size(), equalTo(before.size() + 1));
+        //Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt(c -> c.getId()).max().getAsInt()))));
     }
 
-    @Test(dataProvider = "invalidContactsFromJson")
+    @Test(dataProvider = "invalidContactsFromJson", priority = 2)
     public void testBadContactCreation(ContactData contact) {
+        Groups groups = app.db().groups();
         File photo = new File("src/test/resources/bliznecy.png");
-        contact.withPhoto(photo).withGroup(groupName);
+        contact.withPhoto(photo).inGroup(groups.iterator().next());
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().create(contact, true);
-        assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
+        assertThat(app.db().contacts().size(), equalTo(before.size()));
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before));
     }
 

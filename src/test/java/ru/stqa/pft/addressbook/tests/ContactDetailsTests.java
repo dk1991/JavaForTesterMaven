@@ -14,10 +14,10 @@ public class ContactDetailsTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().homePage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
             app.contact().create(new ContactData().withFirstName("Mag").withLastName("Buben")
-                    .withGroup("test5").withAddress("Moscow VDNKH Konstantinova 33-155")
+                    /*.withGroup("test5")*/.withAddress("Moscow VDNKH Konstantinova 33-155")
                     .withHomePhone("+7(495)1450033").withMobilePhone("8(903)28288501").withWorkPhone("777-33-21")
                     .withEmail("spider@yandex.com").withEmail2("crocodile@mail.ru").withEmail3("cat@gmail.net"), true);
         }
@@ -26,7 +26,7 @@ public class ContactDetailsTests extends TestBase {
     @Test
     public void testContactDetails() {
         app.goTo().homePage();
-        ContactData contact = app.contact().all().iterator().next();
+        ContactData contact = app.db().contacts().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
         ContactData contactInfoFromDetailsForm = app.contact().infoFromDetailsForm(contact);
         assertThat(cleanInfo(concatInfoFromEditForm(contactInfoFromEditForm)), equalTo(cleanInfo(contactInfoFromDetailsForm.getMainInfo())));

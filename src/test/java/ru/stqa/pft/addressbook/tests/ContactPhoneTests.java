@@ -14,10 +14,10 @@ public class ContactPhoneTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().homePage();
-        if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstName("Joe").withLastName("Tribiany").withGroup("test1")
-                    .withHomePhone("+7(495)1450033").withMobilePhone("8(903)28288501").withWorkPhone("777-33-21"),true);
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
+            app.contact().create(new ContactData().withFirstName("Joe").withLastName("Tribiany")/*.withGroup("test1")*/
+                    .withHomePhone("+7(495)1450033").withMobilePhone("8(903)28288501").withWorkPhone("777-33-21"), true);
         }
     }
 
@@ -30,14 +30,13 @@ public class ContactPhoneTests extends TestBase {
     }
 
     public static String cleaned(String phone) {
-        return phone.replaceAll("\\s","").replaceAll("[-()]","");
+        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 
     private String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-                .stream().filter((s) -> ! s.equals(""))
+                .stream().filter((s) -> !s.equals(""))
                 .map(ContactPhoneTests::cleaned)
                 .collect(Collectors.joining("\n"));
-
     }
 }

@@ -4,11 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
+
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 public class ContactHelper extends HelperBase {
 
@@ -30,19 +33,25 @@ public class ContactHelper extends HelperBase {
         type(By.xpath("//input[@name='email']"), contactData.getEmail());
         type(By.xpath("//input[@name='email2']"), contactData.getEmail2());
         type(By.xpath("//input[@name='email3']"), contactData.getEmail3());
-        attach(By.name("photo"), contactData.getPhoto());
+        if (contactData.getPhoto() != null ) {
+            attach(By.name("photo"), contactData.getPhoto());
+        }
 
         if (creation) {
-            List<WebElement> availableGroups = wd.findElements(By.xpath("//select[@name='new_group']/option"));
-            for (WebElement group : availableGroups) {
-                if (group.getText().equals(contactData.getGroup())) {
-                    new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-                    return;
-                }
+//            List<WebElement> availableGroups = wd.findElements(By.xpath("//select[@name='new_group']/option"));
+//            for (WebElement group : availableGroups) {
+//                if (group.getText().equals(contactData.getGroup())) {
+//                    new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+//                    return;
+//                }
+//            }
+            if (contactData.getGroups().size() > 0) {
+                assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group")))
+                        .selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
-            new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption().click();
         } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
+            assertFalse(isElementPresent(By.name("new_group")));
         }
     }
 
@@ -78,6 +87,10 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[id='" + id + "'")).click();
     }
 
+    public void selectContactByLastName(String lastName) {
+        wd.findElement(By.xpath(String.format("//td[text()='%s']/..//input", lastName))).click();
+    }
+
     public void deleteSelectedContact() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
@@ -103,6 +116,13 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact, false);
         submitContactModification();
         contactCache = null;
+        returnToHomePage();
+    }
+
+    public void addToGroup(ContactData contact, GroupData group) {
+        selectContactByLastName(contact.getLastName());
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        click(By.xpath("//input[@value='Add to']"));
         returnToHomePage();
     }
 
@@ -158,9 +178,8 @@ public class ContactHelper extends HelperBase {
             String address = cells.get(3).getText();
             String allEmails = cells.get(4).getText();
 
-            ContactData contact = new ContactData().withFirstName(firstName).withLastName(lastName).withId(id)
-                    .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails);
-            contactCache.add(contact);
+            contactCache.add(new ContactData().withFirstName(firstName).withLastName(lastName).withId(id)
+                    .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
         return new Contacts(contactCache);
     }
