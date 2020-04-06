@@ -92,5 +92,10 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.10.Final</version>
         </dependency>
+        <dependency>
+            <groupId>biz.futureware.mantis</groupId>
+            <artifactId>mantis-axis-soap-client</artifactId>
+            <version>1.2.19</version>
+        </dependency>
     </dependencies>
 </project>
