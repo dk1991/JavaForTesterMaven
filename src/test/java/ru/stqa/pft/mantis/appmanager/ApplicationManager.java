@@ -25,6 +25,9 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
+    private AdminHelper adminHelper;
+    private NavigationHelper navigationHelper;
+    private DBHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -38,6 +41,8 @@ public class ApplicationManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        dbHelper = new DBHelper();
     }
 
     public void stop() {
@@ -52,6 +57,10 @@ public class ApplicationManager {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public DBHelper db() {
+        return dbHelper;
     }
 
     // ленивая инициализация
@@ -81,6 +90,20 @@ public class ApplicationManager {
             jamesHelper = new JamesHelper(this);
         }
         return jamesHelper;
+    }
+
+    public AdminHelper admin() {
+        if (adminHelper == null) {
+            adminHelper = new AdminHelper(this);
+        }
+        return adminHelper;
+    }
+
+    public NavigationHelper goTo() {
+        if (navigationHelper == null) {
+            navigationHelper = new NavigationHelper(this);
+        }
+        return navigationHelper;
     }
 
     public WebDriver getDriver() {
