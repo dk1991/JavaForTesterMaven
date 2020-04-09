@@ -5,6 +5,7 @@
         <classes>
             <class name="ru.stqa.pft.addressbook.sandboxtests.EquationTests" />
             <class name="ru.stqa.pft.addressbook.sandboxtests.PrimesTests" />
+            <class name="ru.stqa.pft.addressbook.sandboxtests.SquareTests" />
         </classes>
     </test>
 </suite>
