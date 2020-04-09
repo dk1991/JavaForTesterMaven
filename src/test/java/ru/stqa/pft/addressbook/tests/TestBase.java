@@ -12,6 +12,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class TestBase {
             = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME)); // VM options: -ea -Dbrowser="firefox"
 
     @BeforeSuite
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         app.init();
     }
 

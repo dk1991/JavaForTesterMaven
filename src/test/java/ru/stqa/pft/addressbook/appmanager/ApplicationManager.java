@@ -34,6 +34,7 @@ public class ApplicationManager {
     }
 
     public void init() throws MalformedURLException {
+        // -Dtarget=remote
         String target = System.getProperty("target", "local");
         try {
             properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
