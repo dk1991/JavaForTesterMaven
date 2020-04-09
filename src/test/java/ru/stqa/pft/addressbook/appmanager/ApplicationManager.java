@@ -6,10 +6,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +33,7 @@ public class ApplicationManager {
         properties = new Properties();
     }
 
-    public void init() {
+    public void init() throws MalformedURLException {
         String target = System.getProperty("target", "local");
         try {
             properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
@@ -39,15 +43,21 @@ public class ApplicationManager {
 
         dbHelper = new DBHelper();
 
-        if (browser.equals(BrowserType.FIREFOX)) {
-            WebDriverManager.firefoxdriver().setup();
-            wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)) {
-            WebDriverManager.chromedriver().setup();
-            wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.IE)){
-            WebDriverManager.iedriver().setup();
-            wd = new InternetExplorerDriver();
+        if ("".equals(properties.getProperty("selenium.server"))) {
+            if (browser.equals(BrowserType.FIREFOX)) {
+                WebDriverManager.firefoxdriver().setup();
+                wd = new FirefoxDriver();
+            } else if (browser.equals(BrowserType.CHROME)) {
+                WebDriverManager.chromedriver().setup();
+                wd = new ChromeDriver();
+            } else if (browser.equals(BrowserType.IE)) {
+                WebDriverManager.iedriver().setup();
+                wd = new InternetExplorerDriver();
+            }
+        } else {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(browser);
+            wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
