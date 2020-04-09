@@ -24,9 +24,9 @@
                 <configuration>
 <!--                    <!— Suite testng xml file to consider for test execution —>-->
                     <suiteXmlFiles>
-<!--                        <suiteXmlFile>src/test/resources/testng-groups.xml</suiteXmlFile>-->
+                        <suiteXmlFile>src/test/resources/testng-groups.xml</suiteXmlFile>
 <!--                        <suiteXmlFile>src/test/resources/testng-contacts.xml</suiteXmlFile>-->
-                        <suiteXmlFile>src/test/resources/testng-sandbox.xml</suiteXmlFile>
+<!--                        <suiteXmlFile>src/test/resources/testng-sandbox.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
 <!--                    <systemPropertyVariables>-->
 <!--&lt;!&ndash;                        <propertyName>propertyValue</propertyName>&ndash;&gt;-->
