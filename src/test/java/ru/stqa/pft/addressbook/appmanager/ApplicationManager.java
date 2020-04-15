@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -36,6 +37,7 @@ public class ApplicationManager {
     public void init() throws MalformedURLException {
         // -Dtarget=remote для удаленных настроек
         String target = System.getProperty("target", "local");
+        //String target = System.getProperty("target", "local");
         try {
             properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         } catch (IOException e) {
@@ -58,6 +60,7 @@ public class ApplicationManager {
         } else {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(browser);
+            capabilities.setPlatform(Platform.LINUX);
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
 
