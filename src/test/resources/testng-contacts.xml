@@ -5,9 +5,9 @@
         <classes>
             <class name="ru.stqa.pft.addressbook.tests.ContactCreationTests"/>
             <class name="ru.stqa.pft.addressbook.tests.ContactModificationTests">
-                <methods>
-                    <exclude name="testContactModification"/>
-                </methods>
+<!--                <methods>-->
+<!--                    <exclude name="testContactModification"/>-->
+<!--                </methods>-->
             </class>
             <class name="ru.stqa.pft.addressbook.tests.ContactDeletionTests"/>
             <class name="ru.stqa.pft.addressbook.tests.ContactEmailsTests"/>
